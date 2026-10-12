@@ -1,16 +1,23 @@
+
 package ecom.SwagLabs.objRepo;
+
+import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HamburgerMenuPage {
 
     WebDriver driver;
+    WebDriverWait wait;
 
     public HamburgerMenuPage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
     }
 
@@ -33,42 +40,44 @@ public class HamburgerMenuPage {
     private WebElement resetAppState;
 
     public void openMenu() {
-        menuButton.click();
+        wait.until(ExpectedConditions.elementToBeClickable(menuButton)).click();
+
+        wait.until(ExpectedConditions.visibilityOf(allItems));
     }
 
     public void closeMenu() {
-        closeMenuButton.click();
+        wait.until(ExpectedConditions.elementToBeClickable(closeMenuButton)).click();
     }
 
     public void clickAllItems() {
-        allItems.click();
+        wait.until(ExpectedConditions.elementToBeClickable(allItems)).click();
     }
 
     public void clickAbout() {
-        about.click();
+        wait.until(ExpectedConditions.elementToBeClickable(about)).click();
     }
 
     public void clickLogout() {
-        logout.click();
+        wait.until(ExpectedConditions.elementToBeClickable(logout)).click();
     }
 
     public void clickResetAppState() {
-        resetAppState.click();
+        wait.until(ExpectedConditions.elementToBeClickable(resetAppState)).click();
     }
 
     public boolean isAllItemsDisplayed() {
-        return allItems.isDisplayed();
+        return wait.until(ExpectedConditions.visibilityOf(allItems)).isDisplayed();
     }
 
     public boolean isAboutDisplayed() {
-        return about.isDisplayed();
+        return wait.until(ExpectedConditions.visibilityOf(about)).isDisplayed();
     }
 
     public boolean isLogoutDisplayed() {
-        return logout.isDisplayed();
+        return wait.until(ExpectedConditions.visibilityOf(logout)).isDisplayed();
     }
 
     public boolean isResetAppStateDisplayed() {
-        return resetAppState.isDisplayed();
+        return wait.until(ExpectedConditions.visibilityOf(resetAppState)).isDisplayed();
     }
 }
